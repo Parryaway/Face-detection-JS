@@ -16,12 +16,12 @@ function startvideo(){
 }
 
 webcam.addEventListener("play", ()=> {
-    let canvas = faceapi.createCanvasFromMedia(video)
+    let canvas = faceapi.createCanvasFromMedia(webcam)
     document.body.append(canvas)
     let displaySize = {width: webcam.width, height: webcam.height}
     faceapi.matchDimensions(canvas, displaySize)
     setInterval(async () => {
-        let detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
+        let detections = await faceapi.detectAllFaces(webcam, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
         let resizedDetections = faceapi.resizeResults(detections, displaySize)
         canvas.getContext("2d").clearRect(0,0, canvas.width, canvas.height)
         faceapi.draw.drawDetections(canvas,resizedDetections)
